@@ -23,9 +23,8 @@ expressApp.use(bodyParser.urlencoded({ extended: false }));
 
 
 router.get("/", async (req, res) => {
-    expressApp.get('/', (req, res) => {
-        res.render('form');
-    });
+    res.render('form');
+
 })
 
 // URL  path'i / olduğunda ve client tarafında gerçekleşen eylem methodu post olduğunda requestin
