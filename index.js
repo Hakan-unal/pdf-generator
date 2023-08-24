@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const fs = require("fs");
 const PDFDocument = require('pdfkit');
 const doc = new PDFDocument();
+const PORT = process.env.PORT || 8080
+const router = express.Router()
 
 // Görünüm engine olarak pug kullanacağımız için bunu uygulamaya aşağıdaki kod bloğuyla aktardık
 expressApp.set('view engine', 'pug');
@@ -15,9 +17,16 @@ expressApp.use(bodyParser.urlencoded({ extended: false }));
 
 // URL  path'i / olduğunda ve client tarafında gerçekleşen eylem methodu get olduğunda pug
 // bizim için form.pug dosyasını response cevabı olarak gösterir
-expressApp.get('/', (req, res) => {
-    res.render('form');
-});
+
+
+
+
+
+router.get("/", async (req, res) => {
+    expressApp.get('/', (req, res) => {
+        res.render('form');
+    });
+})
 
 // URL  path'i / olduğunda ve client tarafında gerçekleşen eylem methodu post olduğunda requestin
 // üzeridne yer alan metnin alınması lazım bu yüzden uygulamaya import ettiğimiz bodyparser modülü
@@ -45,6 +54,6 @@ expressApp.post('/', (req, res) => {
 });
 
 // Server 3000 portu üzerinden açıldı
-expressApp.listen(3000, () => {
-    console.log('Server listening port 3000');
+expressApp.listen(PORT, () => {
+    console.log('Server listening port:' + PORT);
 });
