@@ -1,20 +1,23 @@
 {
-  "name": "fileservice",
-  "version": "1.0.0",
-  "description": "",
+  "name": "express-vercel",
+  "version": "0.5.0",
+  "description": "express vercel",
   "main": "app.js",
   "scripts": {
     "start": "vercel dev",
-    "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest -i",
+    "dev": "nodemon app.js"
   },
-  "author": "Hakan Ünal",
-  "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "nodemon": "^2.0.2",
     "pdfkit": "^0.13.0",
     "pug": "^2.0.4"
-  }
+  },
+  "keywords": [
+    "vercel"
+  ],
+  "author": "Hakan Ünal https://hakanunal.com",
+  "license": "MIT"
 }
