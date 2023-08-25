@@ -6,7 +6,7 @@
   "scripts": {
     "start": "vercel dev",
     "test": "jest -i",
-    "dev": "nodemon index.js"
+    "dev": "nodemon ./index.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",

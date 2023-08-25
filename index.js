@@ -7,16 +7,15 @@ const PDFDocument = require('pdfkit');
 const doc = new PDFDocument();
 const PORT = process.env.PORT || 8080
 
-app.set('view engine', 'pug');
-app.set('views', 'views');
 
 app.use(bodyParser.urlencoded({ extended: false, limit: "50mb" }));
 
 
 
 app.get("/", async (req, res) => {
-    res.render('form');
-
+    res.status(200);
+    res.send({ message: "Welcome your home" })
+    res.end()
 })
 
 
@@ -41,6 +40,11 @@ app.post('/', (req, res) => {
 
 app.all("*", (req, res) => res.status(404))
 
+
+
+app.listen(3000, () => {
+    console.log('Server listening port 3000');
+});
 
 
 
