@@ -44,7 +44,6 @@ const options = {
 const specs = swaggerJsdoc(options);
 
 const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
-swaggerUI.setup(specs, { customCssUrl: CSS_URL })
 
 
 
@@ -52,7 +51,7 @@ swaggerUI.setup(specs, { customCssUrl: CSS_URL })
 app.get(
     "/api-docs",
     swaggerUi.serve,
-    swaggerUi.setup(specs, { explorer: true })
+    swaggerUi.setup(specs, { explorer: true, customCssUrl: CSS_URL })
 );
 
 
