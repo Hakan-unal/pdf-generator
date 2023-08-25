@@ -44,3 +44,6 @@ app.all("*", (req, res) => res.status(404))
 app.listen(PORT, () => {
     console.log('Server listening port:' + PORT);
 });
+
+
+module.exports = app
