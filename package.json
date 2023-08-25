@@ -13,7 +13,9 @@
     "express": "^4.17.1",
     "nodemon": "^2.0.2",
     "pdfkit": "^0.13.0",
-    "pug": "^2.0.4"
+    "pug": "^2.0.4",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   },
   "keywords": [
     "vercel"
