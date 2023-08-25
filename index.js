@@ -8,13 +8,19 @@ const doc = new PDFDocument();
 const PORT = process.env.PORT || 8080
 
 
+const product = require("./api/product")
+
 app.use(bodyParser.urlencoded({ extended: false, limit: "50mb" }));
 
 
 
 app.get("/", async (req, res) => {
     res.status(200);
-    res.send({ message: "Welcome your home" })
+
+    res.json({
+        message: "Success get data",
+        data: product.getData()
+    })
     res.end()
 })
 

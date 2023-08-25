@@ -1,7 +1,15 @@
-const express = require("express");
-const router = express.Router()
+// type Data = {
+//     name: string;
+//     surname: string;
+// }
+
+const db = [
+    { name: "test1", surname: "test1" },
+    { name: "test2", surname: "test2" }
+];
 
 
-router.get("/", async (req, res) => {
+exports.getData = () => {
+    return db
+}
 
-})
