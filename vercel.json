@@ -21,11 +21,19 @@
             "memory": 1024,
             "maxDuration": 30
         },
-        "api/product": {
+        "api/product.js": {
             "memory": 1024,
             "maxDuration": 30
         },
         "api-docs": {
+            "memory": 1024,
+            "maxDuration": 30
+        },
+        "swagger-ui-init.js": {
+            "memory": 1024,
+            "maxDuration": 30
+        },
+        "swagger-ui-bundle.js": {
             "memory": 1024,
             "maxDuration": 30
         }
