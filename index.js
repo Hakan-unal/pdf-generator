@@ -1,4 +1,3 @@
-// Gerekli modüller uygualamaya import edildi
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -6,92 +5,91 @@ const fs = require("fs");
 const PDFDocument = require('pdfkit');
 const doc = new PDFDocument();
 const PORT = process.env.PORT || 8080
-const swaggerJsdoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
-
+const path = require("path")
 const product = require("./api/product")
 
-app.use(bodyParser.urlencoded({ extended: false, limit: "50mb" }));
-
-
-const options = {
-    definition: {
-        openapi: "3.1.0",
-        info: {
-            title: "Express API",
-            version: "0.1.0",
-            description:
-                "This is a simple CRUD API application made with Express and documented with Swagger",
-            license: {
-                name: "MIT",
-                url: "https://spdx.org/licenses/MIT.html",
-            },
-            contact: {
-                name: "Hakan Ünal",
-                url: "https://hakanunal.com",
-                email: "info@email.com",
-            },
-        },
-        servers: [
-            {
-                url: "https://pdf-generator-pi.vercel.app",
-            },
-        ],
-    },
-    apis: ["./routes/*.js"],
-};
-
-const specs = swaggerJsdoc(options);
-
-const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
+app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
+app.use(bodyParser.json())
 
 
 
-
-app.get(
-    "/api-docs",
-    swaggerUi.serve,
-    swaggerUi.setup(specs, { explorer: true, customCssUrl: CSS_URL })
-);
 
 
 
 app.get("/", async (req, res) => {
-    res.status(200);
+    try {
+        res.status(200);
 
-    res.json({
-        message: "Success get data",
-        data: product.getData()
-    })
-    res.end()
+        res.json({
+            message: "Success get data",
+            data: product.getData()
+        })
+        res.end()
+    } catch (error) {
+
+        res.status(404).send(error)
+        res.end()
+
+    }
+
 })
 
 
 
-app.post('/', (req, res) => {
-    const formText = req.body.text;
-    doc.fontSize(27)
-        .text('PDF file title', 100, 100);
+app.post('/file', (req, res) => {
+    const text = req.body.text;
+    const title = req.body.title + ".pdf";
 
-    doc.pipe(fs.createWriteStream('example.pdf'));
+    try {
+        doc.fontSize(27)
+            .text('PDF file title', 100, 100);
 
-    doc.addPage()
-        .fontSize(15)
-        .text(formText, 100, 100);
-    doc.end();
+        doc.pipe(fs.createWriteStream('./public/' + title));
 
+        doc.addPage()
+            .fontSize(15)
+            .text(text, 100, 100);
+        doc.end();
 
+        res.sendStatus(200)
+        res.end()
 
+    } catch (error) {
+        res.status(404).send(error)
+        res.end()
+    }
 
-    res.redirect("/");
 });
 
-app.all("*", (req, res) => res.status(404))
+
+
+app.get('/file', (req, res) => {
+    try {
+        const title = req.body.title;
+        const filePath = './public/' + title + ".pdf"
+
+        const file = fs.createReadStream(filePath);
+        const stat = fs.statSync(filePath);
+        res.setHeader('Content-Length', stat.size);
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
+        file.pipe(res);
+        res.end();
+
+    } catch (error) {
+        res.status(404).send(error)
+        res.end();
+    }
+})
 
 
 
-app.listen(3000, () => {
-    console.log('Server listening port 3000');
+app.all("*", (req, res) => res.status(404).send("page not found"))
+
+
+
+app.listen(PORT, () => {
+    console.log('Server listening port: ' + PORT);
 });
 
 

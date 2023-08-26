@@ -11,31 +11,5 @@
             "src": "/(.*)",
             "dest": "/"
         }
-    ],
-    "functions": {
-        "api/hello.ts": {
-            "memory": 3008,
-            "maxDuration": 60
-        },
-        "api/another.ts": {
-            "memory": 1024,
-            "maxDuration": 30
-        },
-        "api/product.js": {
-            "memory": 1024,
-            "maxDuration": 30
-        },
-        "api-docs": {
-            "memory": 1024,
-            "maxDuration": 30
-        },
-        "swagger-ui-init.js": {
-            "memory": 1024,
-            "maxDuration": 30
-        },
-        "swagger-ui-bundle.js": {
-            "memory": 1024,
-            "maxDuration": 30
-        }
-    }
+    ]
 }
