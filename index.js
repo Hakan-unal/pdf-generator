@@ -7,12 +7,14 @@ const doc = new PDFDocument();
 const PORT = process.env.PORT || 8080
 const product = require("./api/product")
 const path = require('path')
+var cors = require('cors');
 
 
 
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json())
 app.use("/public", express.static("uploads"));
+app.use(cors());
 
 
 
