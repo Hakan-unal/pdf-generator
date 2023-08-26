@@ -81,6 +81,19 @@ app.get('/file', (req, res) => {
     }
 })
 
+app.get('/files', (req, res) => {
+    const folderPath = './public/'
+
+    try {
+        fs.readdir(folderPath, (err, files) => {
+            res.status(200).send(files)
+        })
+    } catch (error) {
+        res.status(404).send(error)
+        res.end();
+    }
+})
+
 
 
 app.all("*", (req, res) => res.status(404).send("page not found"))
