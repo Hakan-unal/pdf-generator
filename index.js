@@ -48,7 +48,7 @@ app.post('/file', (req, res) => {
         doc.fontSize(27)
             .text('PDF file title', 100, 100);
 
-        doc.pipe(fs.createWriteStream('./public/' + title));
+        doc.pipe(fs.createWriteStream(path.join(__dirname, './public/' + title)));
 
         doc.addPage()
             .fontSize(15)
