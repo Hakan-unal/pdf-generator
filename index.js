@@ -69,7 +69,7 @@ app.post('/file', (req, res) => {
 
 
 
-app.get('/file', (req, res) => {
+app.post('/getFile', (req, res) => {
     try {
         const title = req.body.title;
         const filePath = path.join(__dirname, './public/' + title + '.pdf')
