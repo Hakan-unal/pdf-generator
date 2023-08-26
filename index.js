@@ -17,12 +17,11 @@ app.use(bodyParser.json())
 
 app.get("/", async (req, res) => {
     try {
-        res.status(200);
 
         res.json({
             message: "Success get data",
             data: product.getData()
-        })
+        }).status(200)
         res.end()
     } catch (error) {
 
@@ -73,11 +72,13 @@ app.get('/file', (req, res) => {
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
         file.pipe(res);
+
+
+
         res.end();
 
     } catch (error) {
         res.status(404).send(error)
-        res.end();
     }
 })
 
@@ -86,7 +87,9 @@ app.get('/files', (req, res) => {
 
     try {
         fs.readdir(folderPath, (err, files) => {
-            res.status(200).send(files)
+            res.json({
+                data: files
+            }).status(200).end()
         })
     } catch (error) {
         res.status(404).send(error)
