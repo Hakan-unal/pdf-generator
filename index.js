@@ -5,7 +5,6 @@ const fs = require("fs");
 const PDFDocument = require('pdfkit');
 const doc = new PDFDocument();
 const PORT = process.env.PORT || 8080
-const path = require("path")
 const product = require("./api/product")
 
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
