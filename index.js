@@ -6,7 +6,7 @@ const PDFDocument = require('pdfkit');
 const doc = new PDFDocument();
 const PORT = process.env.PORT || 8080
 const product = require("./api/product")
-
+const path = require('path')
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json())
 
@@ -64,8 +64,7 @@ app.post('/file', (req, res) => {
 app.get('/file', (req, res) => {
     try {
         const title = req.body.title;
-        const filePath = './public/' + title + ".pdf"
-
+        const filePath = path.join(__dirname, './public/' + title + '.pdf')
         const file = fs.createReadStream(filePath);
         const stat = fs.statSync(filePath);
         res.setHeader('Content-Length', stat.size);
@@ -83,7 +82,7 @@ app.get('/file', (req, res) => {
 })
 
 app.get('/files', (req, res) => {
-    const folderPath = './public'
+    const folderPath = path.join(__dirname, './public/')
 
     try {
         fs.readdir(folderPath, (err, files) => {
