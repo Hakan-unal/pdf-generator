@@ -7,8 +7,12 @@ const doc = new PDFDocument();
 const PORT = process.env.PORT || 8080
 const product = require("./api/product")
 const path = require('path')
+
+
+
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json())
+app.use("/public", express.static("uploads"));
 
 
 
@@ -50,6 +54,8 @@ app.post('/file', (req, res) => {
         doc.end();
 
         res.sendStatus(200)
+
+
         res.end()
 
     } catch (error) {
@@ -64,17 +70,8 @@ app.post('/file', (req, res) => {
 app.get('/file', (req, res) => {
     try {
         const title = req.body.title;
-        const filePath = path.join(__dirname, './public/' + title + '.pdf')
-        const file = fs.createReadStream(filePath);
-        const stat = fs.statSync(filePath);
-        res.setHeader('Content-Length', stat.size);
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename=quote.pdf');
-        file.pipe(res);
+        res.download("public/" + title + '.pdf');
 
-
-
-        res.end();
 
     } catch (error) {
         res.status(404).send(error)
@@ -82,7 +79,7 @@ app.get('/file', (req, res) => {
 })
 
 app.get('/files', (req, res) => {
-    const folderPath = path.join(__dirname, './public/')
+    const folderPath = './public/'
 
     try {
         fs.readdir(folderPath, (err, files) => {
