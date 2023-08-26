@@ -83,7 +83,7 @@ app.get('/file', (req, res) => {
 })
 
 app.get('/files', (req, res) => {
-    const folderPath = './public/'
+    const folderPath = './public'
 
     try {
         fs.readdir(folderPath, (err, files) => {
